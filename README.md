@@ -18,7 +18,7 @@ Every team within your company org gets a workspace with the team name - so any 
 |------|-----------|
 | builder-stack | [`teams/builder-stack/`](teams/builder-stack/) |
 
-**Adding a team?** `cp -r teams/_template teams/<your-team-name>`, fill in the team README, and add your team to this table and the one in [`teams/README.md`](teams/README.md) — all in one PR. Or let Claude do it: fetch the repo (`git fetch` / `git pull`) in a Claude Code session — the `/start` greeting re-runs with a team prompt; choose **Create a new team** and type its name, and the workspace is scaffolded from the template with both team tables updated for you. Full instructions live in [`teams/README.md`](teams/README.md).
+**Adding a team?** Let Claude or Codex do it: fetch the repo (`git fetch` / `git pull`) in a session — the `/start` greeting re-runs with a team prompt; choose **Create a new team** and type its name, and the workspace is scaffolded from the template with both team tables updated for you. Full instructions live in [`teams/README.md`](teams/README.md).
 
 ## The Builder Stack Workflow
 
