@@ -50,7 +50,7 @@ Think → Plan → Build → Review → Test → Ship → Reflect
 | **Review** | `/security` | OWASP audit, secrets scan, auto-fix, risk report |
 | **Review** | `/pr-comments` | Respond to PR reviewer feedback — fixes what it agrees with, pushes back on what it doesn't, always invites live discussion |
 | **Test** | `/qa` | Adversarial testing, bug fixes, test coverage |
-| **Ship** | `/release` | Sync, test, push, open a structured PR |
+| **Ship** | `/release` | Sync, test, credit Codex as a commit co-author when it materially authored the change, push, and open a structured PR |
 | **Reflect** | `/memory` | Save and search learnings across sessions. Also tunes per-question interruption preferences (`/memory tune <id> never-ask`) so routine asks get auto-decided with an inline annotation instead of re-interrupting |
 
 **Template skills** (`/canonical-doc`, `/strategic-one-pager`, `/product-spec`, `/design-brief`, `/eng-tech-plan`, `/eng-estimates`, `/qa-spec`, `/experiment-spec`, `/critical-launch-checklist`, `/legal-review`, `/gtm-plan`, `/notes`) all work the same way: each ships a default `template.md` you can use as-is, or you can share your company-specific template and get the doc in your preferred format. **Your data is never shared** — templates and documents stay local to your machine and repos. You can also fork this repo and swap the `template.md` files for your company's formats. Output lands as Markdown in your team's workspace (`teams/<team>/...`), a Google Doc with native tabs, or a Confluence page.
