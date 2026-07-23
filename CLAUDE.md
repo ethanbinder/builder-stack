@@ -26,6 +26,7 @@ Builder Stack is a collection of Claude Code & Codex skills for Builders who bui
 
 Every change in this repo — even a single-line edit — ships via a pull request. No direct commits to `main`. No uncommitted edits left as "done." After any code, skill, doc, or reference edit, the next move is: branch off `main` (if you're not already on a feature branch scoped to that change), commit, push, and open a PR via `/release`.
 
+- **Always invoke `/release` when creating a plan or opening a PR.** Any plan whose outcome includes opening a PR — including Claude Code plan-mode plans — must name `/release` as the mechanism for the commit/push/PR steps, and any PR must be opened by invoking `/release` (never a bare `gh pr create` outside the skill). This applies even when no other skill is active in the session.
 - Each logical change gets its own branch and PR. Don't stack unrelated edits on an existing feature branch (e.g., don't pile a footer rebrand onto a Jira-integration branch).
 - **Large changes ship as stacked PRs** — small, ordered, reviewable: each PR based on the previous branch (`gh pr create --base <previous-branch>`), each self-contained with its own tech plan, merged base-first.
 - The default PR is **non-draft**. Open as **draft** only when the user explicitly says so ("draft", "draft PR", "open as draft") — pass `--draft` to `gh pr create` in that case.
