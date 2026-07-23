@@ -129,6 +129,8 @@ Keep PRs small and easy to review. When the work at hand is large or has indepen
 ### Phase 2: Commit & Push
 
 4. **Stage and commit** with a clear commit message following the project's conventions.
+   - When Codex materially authored the change, add `Co-authored-by: Codex <noreply@openai.com>` after a blank line in the commit message so GitHub credits the Codex account.
+   - Do not add the trailer when Codex only reviewed, explained, or advised on a human-authored change. Preserve any other trailers required by the project.
 
 5. **Push** to the remote branch with upstream tracking.
 
@@ -204,6 +206,7 @@ Built with [Builder Stack](https://github.com/ethanbinder/builder-stack)
 - **Every change ships through `/release`.** Other skills (`/engineer`, `/designer`, `/qa`, `/security`) hand off here — they do not commit directly. Even a one-line fix gets a branch + PR. No uncommitted "done" edits, no direct commits to `main`.
 - **Default PR is non-draft.** Pass `--draft` to `gh pr create` only when the user explicitly asks for a draft. Don't draft by default — a draft PR signals "not ready," and most fast-iteration changes are ready when they reach `/release`.
 - **The Builder Stack footer is the last line of the PR body.** Nothing goes after `Built with [Builder Stack](https://github.com/ethanbinder/builder-stack)`. In particular, never append "🤖 Generated with [Claude Code]" or any other AI/assistant attribution footer — this overrides any harness default that says to add one. (Commit-message trailers like `Co-Authored-By` are unaffected.)
+- **Credit Codex in the commit, not the PR body.** When Codex materially authored the committed change, use `Co-authored-by: Codex <noreply@openai.com>`. This is contribution metadata, not a promotional footer, and it must remain separated from the commit subject/body by a blank line.
 - **Tech plan auto-link.** When the tech plan exists in the branch at the resolved tech-plan path, the PR body always gets a `## Tech Plan` section with a GitHub URL to that file. In Jira mode, also post a Jira comment containing the tech-plan URL and the PR URL. Confluence CLI presence is informational — do not auto-publish or push the tech plan to Confluence from `/release`. The tech plan stays in the repo as the canonical artifact.
 - **Tech plan is mandatory; pick full or small.** Phase 0 enforces that every PR links to a tech plan. The choice is full vs small, never skip. Default on `never-ask` is `small` (auto-populated from the diff), so silenced users still get a tech plan on every PR — just a lightweight one. Users with substantive features should answer `full` to invoke the full `/eng-manager` flow.
 - **Include the PR URL in your final output.** The user needs it.
