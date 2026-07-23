@@ -12,7 +12,7 @@ It gives Builders a virtual team inside Claude Code or Codex spanning the entire
 
 ## Teams
 
-Every team within your company org gets a workspace with the team name — `teams/<team>/<doc-type>/<author>/<title>.md` — so any teammate can find any document without asking. Each folder's README teaches the convention right where you need it.
+Every team within your company org gets a workspace with the team name - so any teammate can find any document without asking. Each folder's README teaches the convention right where you need it.
 
 | Team | Workspace |
 |------|-----------|
