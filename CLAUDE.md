@@ -37,7 +37,7 @@ Every change in this repo — even a single-line edit — ships via a pull reque
 
 ## Onboarding
 
-When a user opens a new Claude Code session in this repo and has not yet stated a task, invoke `/start`. That skill handles the greeting, asks what they're building, and routes them into the right lane (0 → 1 full strategy stack, or fast iteration straight to code).
+When a user opens a new Claude Code session in this repo (or any clone of it) and has not yet stated a concrete task — or asks what Builder Stack is or how to use it — invoke `/start` in **Welcome mode**: reply with the Builder Stack welcome message from `skills/start/SKILL.md` verbatim, team list included. That skill then handles team selection and routes them into the right lane (0 → 1 full strategy stack, or fast iteration straight to code).
 
 If the first message is already a concrete task or skill invocation, act on it directly — do not invoke `/start`.
 
