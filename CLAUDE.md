@@ -41,7 +41,7 @@ When a user opens a new Claude Code session in this repo and has not yet stated 
 
 If the first message is already a concrete task or skill invocation, act on it directly — do not invoke `/start`.
 
-`/start` is also re-invoked automatically after `git pull` / `git fetch` / `git clone` via the hook in `.claude/settings.json` — follow the hook's injected `additionalContext` when that happens.
+`/start` is also re-invoked automatically after `git pull` / `git fetch` / `git clone` via the hook in `.claude/settings.json` — follow the hook's injected `additionalContext` when that happens. In this repo (or any clone of it) the hook triggers `/start`'s **Welcome mode**: reply with the Builder Stack welcome message from `skills/start/SKILL.md` verbatim, every time, team list included.
 
 ## Question preferences
 
