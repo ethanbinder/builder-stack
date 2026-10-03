@@ -1,8 +1,8 @@
 ---
 name: start
 description: >-
-  Entry point for a new session in a Builder Stack project. After a fetch of
-  the Builder Stack repo itself, opens with the Builder Stack welcome message
+  Entry point for a new session in a Builder Stack project. After a fetch of,
+  or a new session in, the Builder Stack repo itself, opens with the Builder Stack welcome message
   and team picker. Asks what you're
   building in one or two sentences, then routes you into one of two lanes:
   0 → 1 (full strategy stack — /office-hours, /strategic-one-pager, /eng-manager —
@@ -35,11 +35,12 @@ If the id is `one-way`, ask normally and append: *"(one-way door — overrides y
 
 ## Workflow
 
-### Welcome mode (after fetching the Builder Stack repo)
+### Welcome mode (fetching or starting to use the Builder Stack repo)
 
-Welcome mode runs whenever someone fetches the Builder Stack repo itself (or a company clone of it):
-- the post-git hook's `additionalContext` says the user fetched/pulled/cloned **the Builder Stack repo**; or
-- an AI assistant was asked to fetch or open the repo (e.g. its GitHub URL).
+Welcome mode runs whenever someone fetches or starts using the Builder Stack repo itself (or a company clone of it):
+- the post-git hook's `additionalContext` says the user fetched/pulled/cloned **the Builder Stack repo**;
+- a new session opens in the Builder Stack repo and the user hasn't stated a concrete task yet (e.g. "hi"); or
+- the user asks what Builder Stack is or how to use it.
 
 In welcome mode, show the welcome message on **every** fetch, even if a `Team:` fact is already saved. It replaces both Phase 0 and Phase 1. Do not also show the Phase 1 greeting.
 
