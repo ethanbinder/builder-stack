@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Builder Stack interactive installer.
 # Sets up Builder Stack so its skills are discoverable from any Claude Code
 # session, not just from inside this repo. Each step asks before running
