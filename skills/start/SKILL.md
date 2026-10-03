@@ -1,7 +1,9 @@
 ---
 name: start
 description: >-
-  Entry point for a new session in a Builder Stack project. Asks what you're
+  Entry point for a new session in a Builder Stack project. After a fetch of
+  the Builder Stack repo itself, opens with the Builder Stack welcome message
+  and team picker. Asks what you're
   building in one or two sentences, then routes you into one of two lanes:
   0 → 1 (full strategy stack — /office-hours, /strategic-one-pager, /eng-manager —
   before any code) or fast iteration (straight to /engineer, /qa,
@@ -32,6 +34,41 @@ Before asking any question flagged in `skills/memory/question-registry.md`, chec
 If the id is `one-way`, ask normally and append: *"(one-way door — overrides your never-ask preference for safety.)"* See `skills/memory/question-registry.md` for the full registry.
 
 ## Workflow
+
+### Welcome mode (after fetching the Builder Stack repo)
+
+Welcome mode runs whenever someone fetches the Builder Stack repo itself (or a company clone of it):
+- the post-git hook's `additionalContext` says the user fetched/pulled/cloned **the Builder Stack repo**; or
+- an AI assistant was asked to fetch or open the repo (e.g. its GitHub URL).
+
+In welcome mode, show the welcome message on **every** fetch, even if a `Team:` fact is already saved. It replaces both Phase 0 and Phase 1. Do not also show the Phase 1 greeting.
+
+#### Welcome message
+
+Output this verbatim. The only edit is to replace `[team list]` with the teams from the Current Teams table in `teams/README.md`, comma-separated, each in backticks. If a `Team:` fact is saved, mark that team with *(your current team)*.
+
+> 👋 Hi there! Welcome to **Builder Stack**.
+>
+> Builder Stack is the best way to build, code, and do product work with agents. Clone this repo and use it across your company as your own **Builder Stack Team OS**.
+>
+> I can read your code, make edits, run commands, write specs, analyze data, and help you build features end-to-end.
+>
+> **Which team are you working in?**
+> 1. **Use an existing team:** [team list]
+> 2. **Create a new team:** tell me its name and I'll set up its workspace.
+>
+> Or just tell me what you want to work on, and we can pick a team later.
+
+Act on the reply:
+- **Picks an existing team** → handle it as Phase 0 **Choose**.
+- **Creates a new team** → handle it as Phase 0 **Create**.
+- **Goes straight to a task** → treat that as Phase 0 **Continue without** (unless a `Team:` fact is already saved).
+
+Then skip Phase 1:
+- If the reply already says what they're building, go straight to Phase 2.
+- Otherwise ask once: *"What do you want to work on? One or two sentences."* Then go to Phase 2.
+
+Welcome mode does not run after a fetch in any other repo. There, the regular Phase 0 → Phase 1 flow applies.
 
 ### Phase 0: Team check (only when a `teams/` directory exists)
 
@@ -101,7 +138,7 @@ If more than one applies, name them in order and ask which the user wants first.
 ## Rules
 
 - **Greet once per session.** If `/start` is re-invoked mid-session, skip Phase 1 and go straight to Phase 2 using whatever signal the user just gave.
-- **Re-greet after a git pull.** If the hook injects `additionalContext` saying the user just pulled/fetched/cloned, treat this as a fresh session: run Phase 1 (greet verbatim) rather than skipping to Phase 2. The pull probably changed what they're working on.
+- **Re-greet after a git pull.** If the hook injects `additionalContext` saying the user just pulled/fetched/cloned, treat this as a fresh session. In the Builder Stack repo, run **Welcome mode** and output the welcome message verbatim. In any other repo, run Phase 0 → Phase 1 (greet verbatim) rather than skipping to Phase 2. Either way, the pull probably changed what they're working on.
 - **Hand off, don't do.** You don't write the design doc, the one pager, or a line of code. The next skill does that.
 - **Infer before asking.** Re-asking the lane when the user already told you is friction. Only ask when the reply is truly ambiguous.
 - **No preamble, no sign-off.** Open with the greeting verbatim. Close by invoking the next skill. No "great, let's begin" or "happy to help" filler.
