@@ -17,13 +17,16 @@
 - Legal Review: [pending]
 - 1-month post-launch readout: [pending]
 
-## GitHub
+## Important Links
 
-- [paste repo link]
-
-## Figma
-
-- [paste design link]
+- Strategic One Pager: [pending]
+- Product Spec: [pending]
+- Tech Plan: [pending]
+- Experiment Spec: [pending]
+- GitHub Repos: [pending]
+- Data Sources: [pending]
+- Legal Review: [pending]
+- Figma: [pending]
 
 ## Roadmap
 
