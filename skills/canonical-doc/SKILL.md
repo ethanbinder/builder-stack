@@ -2,8 +2,8 @@
 name: canonical-doc
 description: >-
   Generate a project's Canonical Doc — the single front door that answers
-  what/why/impact and links every artifact: product docs, GitHub, Figma,
-  roadmap. Uses this skill's default template.md or your company-specific
+  what/why/impact and links every artifact: product docs, important links
+  (GitHub repos, data sources, Figma), roadmap. Uses this skill's default template.md or your company-specific
   template. Output as Markdown (teams workspace), a Google Doc, or a
   Confluence page.
 ---
