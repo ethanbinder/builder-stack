@@ -6,7 +6,7 @@ Builder Stack is a collection of Claude Code & Codex skills for Builders who bui
 
 ## Structure
 
-- `teams/` — one workspace per team (`teams/<team>/<doc-type>/<author>/<title>.md`); `teams/_template/` is the scaffold new teams copy
+- `organizations/` — one workspace per organization, with its teams nested inside (`organizations/<organization>/teams/<team>/<doc-type>/<author>/<title>.md`) and org-wide docs in its own `strategy/` and `roadmap/`; `organizations/_template/` is the scaffold new organizations copy, and `organizations/_template/teams/_template/` is the one new teams copy
 - `skills/` — one directory per skill, each containing a SKILL.md; `skills/memory/` also hosts the shared files every skill references (`builder-context.md`, `question-registry.md`)
 - `.claude/docs/` — setup guides and documentation
 - `.claude/hooks/` — repo hooks (post-git `/start` re-greeting)
@@ -18,8 +18,9 @@ Builder Stack is a collection of Claude Code & Codex skills for Builders who bui
 - Skills should reference `skills/memory/builder-context.md` for shared Builder context.
 - Keep skills self-contained — a skill should work without any other skill installed.
 - When adding or removing a skill directory under `skills/`, update `README.md`'s workflow table in the same PR.
-- When adding or removing a team under `teams/`, update the Current Teams table in `teams/README.md` **and** the Teams table in `README.md` in the same PR.
-- Documents in `teams/` follow one convention everywhere: `teams/<team>/<doc-type>/<author-kebab-case>/<title-kebab-case>.md`, and every document opens with YAML frontmatter carrying `title`, `author`, and `date` (YYYY-MM-DD).
+- When adding or removing an organization under `organizations/`, update the Current Organizations table in `organizations/README.md` **and** the Organizations table in `README.md` in the same PR.
+- When adding or removing a team, update the Current Teams table in its organization's `README.md` **and** the Organizations table in the root `README.md` in the same PR.
+- Documents in `organizations/` follow one convention everywhere: `organizations/<organization>/teams/<team>/<doc-type>/<author-kebab-case>/<title-kebab-case>.md` for a team's docs, `organizations/<organization>/<strategy|roadmap>/<author-kebab-case>/<title-kebab-case>.md` for org-wide ones, and every document opens with YAML frontmatter carrying `title`, `author`, and `date` (YYYY-MM-DD).
 - Keep `README.md` in lockstep with the rest of the repo. Any change that alters what a skill does, how it's invoked, the shared files under `skills/memory/` or `.claude/docs/`, or the project's setup/install flow MUST update the matching parts of `README.md` in the same PR — at minimum the workflow table row ("What It Does"). Don't ship the code change and the README update separately.
 
 ## Shipping
@@ -32,16 +33,16 @@ Every change in this repo — even a single-line edit — ships via a pull reque
 - The default PR is **non-draft**. Open as **draft** only when the user explicitly says so ("draft", "draft PR", "open as draft") — pass `--draft` to `gh pr create` in that case.
 - This rule applies to all code-touching skills (`/engineer`, `/designer`, `/qa`, `/security`, `/pr-comments`). Each ends with a hand-off to `/release` — never a direct commit to `main`.
 - **Every PR must link to a tech plan.** `/release` Phase 0 enforces this — it will not proceed past Phase 0 until a tech plan exists in the branch. The choice is **full** (`/eng-manager` for substantive features) vs **small** (`/eng-manager --small`, auto-populated from the diff for typo fixes / README-only changes / one-line bugs / dependency bumps). There is no "skip tech plan" path. Default on `tune: never-ask` is `small` so silenced users still get a tech plan on every PR.
-- **Tech-plan path for this repo:** `teams/builder-stack/release-plans/<author-kebab-case>/<title-kebab-case>-tech-plan.md` (with `title`/`author`/`date` frontmatter, per the teams convention). This overrides the `product-doc/04b-tech-plan.md` default that `/release` and `/eng-manager` use in repos whose CLAUDE.md doesn't specify a path.
+- **Tech-plan path for this repo:** `organizations/builder-stack/teams/builder-stack/release-plans/<author-kebab-case>/<title-kebab-case>-tech-plan.md` (with `title`/`author`/`date` frontmatter, per the organizations convention). This overrides the `product-doc/04b-tech-plan.md` default that `/release` and `/eng-manager` use in repos whose CLAUDE.md doesn't specify a path.
 - **PR bodies end with the Builder Stack footer and nothing after it.** The final lines of every PR body are the `---` rule plus `Built with [Builder Stack](https://github.com/ethanbinder/builder-stack)`. Never append "🤖 Generated with [Claude Code]" or any other AI/assistant attribution footer to a PR body — this overrides any harness default that says to add one. (Commit-message trailers like `Co-Authored-By` are unaffected.)
 
 ## Onboarding
 
-When a user opens a new Claude Code session in this repo (or any clone of it) and has not yet stated a concrete task — or asks what Builder Stack is or how to use it — invoke `/start` in **Welcome mode**: reply with the Builder Stack welcome message from `skills/start/SKILL.md` verbatim, team list included. That skill then handles team selection and routes them into the right lane (0 → 1 full strategy stack, or fast iteration straight to code).
+When a user opens a new Claude Code session in this repo (or any clone of it) and has not yet stated a concrete task — or asks what Builder Stack is or how to use it — invoke `/start` in **Welcome mode**: reply with the Builder Stack welcome message from `skills/start/SKILL.md` verbatim, organization list included. That skill then handles organization and team selection and routes them into the right lane (0 → 1 full strategy stack, or fast iteration straight to code).
 
 If the first message is already a concrete task or skill invocation, act on it directly — do not invoke `/start`.
 
-`/start` is also re-invoked automatically after `git pull` / `git fetch` / `git clone` via the hook in `.claude/settings.json` — follow the hook's injected `additionalContext` when that happens. In this repo (or any clone of it) the hook triggers `/start`'s **Welcome mode**: reply with the Builder Stack welcome message from `skills/start/SKILL.md` verbatim, every time, team list included.
+`/start` is also re-invoked automatically after `git pull` / `git fetch` / `git clone` via the hook in `.claude/settings.json` — follow the hook's injected `additionalContext` when that happens. In this repo (or any clone of it) the hook triggers `/start`'s **Welcome mode**: reply with the Builder Stack welcome message from `skills/start/SKILL.md` verbatim, every time, organization list included.
 
 ## Question preferences
 

@@ -36,7 +36,7 @@ Before generating, ask (honoring the question-preferences flow — `never-ask` a
 
 ### 2. Populate with substance
 
-Ground the doc in the user's project (CLAUDE.md, existing `teams/` or `product-doc/` artifacts, the codebase). Never leave sections as "TBD" or "add details here" — if you genuinely lack signal for a section, ask, or leave a clearly-marked placeholder the writer must fill (e.g. approver names).
+Ground the doc in the user's project (CLAUDE.md, existing `organizations/` (or older `teams/`) or `product-doc/` artifacts, the codebase). Never leave sections as "TBD" or "add details here" — if you genuinely lack signal for a section, ask, or leave a clearly-marked placeholder the writer must fill (e.g. approver names).
 
 ### 3. Frontmatter
 
@@ -52,9 +52,9 @@ date: <today, YYYY-MM-DD>
 
 ### 4. Output destination
 
-- **Markdown (default).** If the repo has a top-level `teams/` directory, write to `teams/<team>/<folder>/<author-kebab-case>/<title-kebab-case>.md` — team from the `Team:` fact in `.builder-stack/learnings.md` (trigger `/start`'s team check if unset), folder from this mapping:
+- **Markdown (default).** Write to `<workspace>/<folder>/<author-kebab-case>/<title-kebab-case>.md` — workspace from **Finding the workspace** below, folder from this mapping:
 
-  | Skill | Teams folder |
+  | Skill | Team folder |
   |---|---|
   | `/strategic-one-pager` | `strategic-one-pagers/` |
   | `/product-spec`, `/design-brief`, `/experiment-spec` | `product-specs/` |
@@ -62,9 +62,23 @@ date: <today, YYYY-MM-DD>
   | `/canonical-doc`, `/gtm-plan`, `/notes` | `strategy/` |
   | `/data-analysis` (analysis briefs; not a template skill but follows the same output rule) | `data-analysis/` |
 
-  In repos without `teams/`, write to a `product-doc/` directory in the current working directory instead (create it if needed).
+  **Org-wide docs.** When the user says a doc is for the whole organization (or it clearly spans several of its teams), write to the organization instead of a team: `organizations/<organization>/roadmap/` for roadmaps, `organizations/<organization>/strategy/` for everything else, with the same `<author-kebab-case>/<title-kebab-case>.md` ending.
+
+  In repos without `organizations/` or `teams/`, write to a `product-doc/` directory in the current working directory instead (create it if needed).
 - **Google Doc** — on request, create a Google Doc via the Google Drive/Docs MCP tools or CLI; when the user wants several docs together, use one Google Doc with native document tabs (one tab per doc). If Google isn't connected, walk through `.claude/docs/google-workspace-setup.md`.
 - **Confluence** — on request and only when `command -v confluence` succeeds, create a Confluence page from the same content. Append the Builder Stack attribution footer (`---` then `Built with [Builder Stack](https://github.com/ethanbinder/builder-stack)`) to net-new pages only.
+
+### Finding the workspace
+
+Organizations sit above teams: `organizations/<organization>/teams/<team>/`. Resolve the team workspace from the `Organization:` and `Team:` facts under `## Project Facts` in `.builder-stack/learnings.md`:
+
+1. **Both set** and `organizations/<organization>/teams/<team>/` exists → use it.
+2. **Otherwise, `Team:` set** → look for the team under every organization (skip `_template`) and at the older top-level `teams/<team>/`.
+   - Exactly one match inside an organization, and none at `teams/<team>/` → use it and save that organization as the `Organization:` fact.
+   - Only `teams/<team>/` → use it as is. Mention once that it can move into an organization (`organizations/README.md` § Migrating). Never move it without being asked.
+   - Several matches → ask which one. Don't guess.
+   - No match → treat the team as unset.
+3. **Team unset** → trigger `/start`'s organization and team check.
 
 ## How You Should Work
 

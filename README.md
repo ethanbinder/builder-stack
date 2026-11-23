@@ -10,15 +10,15 @@ Builder Stack is built to help teams ship high-quality products faster — while
 
 It gives Builders a virtual team inside Claude Code or Codex spanning the entire product lifecycle — from drafting a Strategic One Pager, to Product Specs, to shipping a production-ready PR.
 
-## Teams
+## Organizations
 
-Every team within your company org gets a workspace with the team name - so any teammate can find any document without asking. Each folder's README teaches the convention right where you need it.
+Every organization in your company gets a workspace, and every team gets one inside its organization - so any teammate can find any document without asking. Docs that span teams live at the organization level. Each folder's README teaches the convention right where you need it.
 
-| Team | Workspace |
-|------|-----------|
-| builder-stack | [`teams/builder-stack/`](teams/builder-stack/) |
+| Organization | Team | Workspace |
+|--------------|------|-----------|
+| builder-stack | builder-stack | [`organizations/builder-stack/teams/builder-stack/`](organizations/builder-stack/teams/builder-stack/) |
 
-**Adding a team?** Let Claude or Codex do it: fetch the repo (`git fetch` / `git pull`) in a session — the Builder Stack welcome message appears with the team picker; choose **Create a new team** and type its name, and the workspace is scaffolded from the template with both team tables updated for you. Full instructions live in [`teams/README.md`](teams/README.md).
+**Adding an organization or team?** Let Claude or Codex do it: fetch the repo (`git fetch` / `git pull`) in a session — the Builder Stack welcome message appears with the organization picker, followed by the team picker; choose **Create a new organization** or **Create a new team** and type its name, and the workspace is scaffolded from the template with the matching tables updated for you. Full instructions, including how to move an older top-level `teams/` folder, live in [`organizations/README.md`](organizations/README.md).
 
 ## The Builder Stack Workflow
 
@@ -28,7 +28,7 @@ Think → Plan → Build → Review → Test → Ship → Reflect
 
 | Phase | Skill | What It Does |
 |-------|-------|-------------|
-| **Start** | `/start` | Run this on a fresh session — and it runs automatically every time you fetch or start a session in the Builder Stack repo, opening with the Builder Stack welcome message and team picker. Checks which team you're on (or scaffolds your team's workspace), asks what you're building, then routes you into one of two lanes: **0 → 1** (full strategy stack — `/office-hours`, `/strategic-one-pager`, `/eng-manager` — before any code) or **fast iteration** (straight to any non-framing skill — `/engineer`, `/designer`, `/eng-manager`, `/qa`, `/security`, `/pr-comments`, `/release`, `/memory`). No spec or one-pager required for the fast lane |
+| **Start** | `/start` | Run this on a fresh session — and it runs automatically every time you fetch or start a session in the Builder Stack repo, opening with the Builder Stack welcome message and organization picker. Checks which organization and team you're on (or scaffolds their workspaces), asks what you're building, then routes you into one of two lanes: **0 → 1** (full strategy stack — `/office-hours`, `/strategic-one-pager`, `/eng-manager` — before any code) or **fast iteration** (straight to any non-framing skill — `/engineer`, `/designer`, `/eng-manager`, `/qa`, `/security`, `/pr-comments`, `/release`, `/memory`). No spec or one-pager required for the fast lane |
 | **Think** | `/office-hours` | First step of the 0 → 1 lane. Three strategic framing questions (Wand Wave, Gap Scan, Strategic Bet) in one batched prompt, then six forcing questions in two rounds of three, reframe your product, challenge premises, and generate alternatives. Advisor recommends a scope mode up front. Repeat asks can be silenced per-user via `/memory tune`. Produces a design doc that feeds every downstream skill |
 | **Think** | `/strategic-one-pager` | Strategic One Pager — align on the "why": problem, vision, goal, high-level requirements, and metrics before anything gets built |
 | **Think** | `/data-analysis` | Data-first analysis — DS Analysis, UX research, raw feedback, market research; validates/supports the one-pager before planning. Writes briefs to your team's `data-analysis/` workspace folder, which also keeps the team's key metrics dashboards registered. Starts by asking for your questions, raw data, and context |
@@ -53,7 +53,7 @@ Think → Plan → Build → Review → Test → Ship → Reflect
 | **Ship** | `/release` | Sync, test, credit Codex as a commit co-author when it materially authored the change, push, and open a structured PR |
 | **Reflect** | `/memory` | Save and search learnings across sessions. Also tunes per-question interruption preferences (`/memory tune <id> never-ask`) so routine asks get auto-decided with an inline annotation instead of re-interrupting |
 
-**Template skills** (`/canonical-doc`, `/strategic-one-pager`, `/product-spec`, `/design-brief`, `/eng-tech-plan`, `/eng-estimates`, `/qa-spec`, `/experiment-spec`, `/critical-launch-checklist`, `/legal-review`, `/gtm-plan`, `/notes`) all work the same way: each ships a default `template.md` you can use as-is, or you can share your company-specific template and get the doc in your preferred format. **Your data is never shared** — templates and documents stay local to your machine and repos. You can also fork this repo and swap the `template.md` files for your company's formats. Output lands as Markdown in your team's workspace (`teams/<team>/...`), a Google Doc with native tabs, or a Confluence page.
+**Template skills** (`/canonical-doc`, `/strategic-one-pager`, `/product-spec`, `/design-brief`, `/eng-tech-plan`, `/eng-estimates`, `/qa-spec`, `/experiment-spec`, `/critical-launch-checklist`, `/legal-review`, `/gtm-plan`, `/notes`) all work the same way: each ships a default `template.md` you can use as-is, or you can share your company-specific template and get the doc in your preferred format. **Your data is never shared** — templates and documents stay local to your machine and repos. You can also fork this repo and swap the `template.md` files for your company's formats. Output lands as Markdown in your team's workspace (`organizations/<organization>/teams/<team>/...`) or, for org-wide docs, your organization's `strategy/` or `roadmap/`, a Google Doc with native tabs, or a Confluence page.
 
 ## Quick Start
 
@@ -85,7 +85,7 @@ The installer asks four Y/n questions, one per integration. Each question explai
 
 1. **Make skills discoverable from any folder** — symlinks each skill into `~/.claude/skills/` so `/engineer`, `/release`, `/start`, etc. are invocable from any project, not just inside this repo.
 2. **Let skills reach their supporting files** — adds Builder Stack's root to Claude Code's `additionalDirectories` so skills can read their shared context, templates, and setup docs from any working directory.
-3. **Auto-invoke `/start` after `git pull`/`fetch`/`clone`** — installs Builder Stack's existing post-git hook globally so it fires in any repo, not just inside this one. Fetching the Builder Stack repo itself opens with the Builder Stack welcome message and team picker; fetching any other repo re-runs the regular `/start` greeting.
+3. **Auto-invoke `/start` after `git pull`/`fetch`/`clone`** — installs Builder Stack's existing post-git hook globally so it fires in any repo, not just inside this one. Fetching the Builder Stack repo itself opens with the Builder Stack welcome message and organization picker; fetching any other repo re-runs the regular `/start` greeting.
 4. **Auto-update Builder Stack on every Claude session start** — installs a `SessionStart` hook that quietly `git pull --ff-only`s this repo and re-syncs your skill symlinks, so new skills landing upstream show up automatically with no manual command.
 
 After it finishes, open Claude Code in any project folder and type `/` to see your Builder Stack skills.
