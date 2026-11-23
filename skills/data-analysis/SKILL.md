@@ -64,9 +64,9 @@ Be rigorous. Look for:
 
 ### Phase 4: Write Output
 
-8. Write the brief using the template below. If the repo has a top-level `teams/` directory, write to `teams/<team>/data-analysis/<author-kebab-case>/<title-kebab-case>.md` with `title`/`author`/`date` frontmatter (team from the `Team:` fact in `.builder-stack/learnings.md`; trigger `/start`'s team check if unset). Otherwise write to `product-doc/01b-data-analysis.md`, creating `product-doc/` if it doesn't exist.
+8. Write the brief using the template below. If the repo has a top-level `organizations/` directory, write to `organizations/<organization>/teams/<team>/data-analysis/<author-kebab-case>/<title-kebab-case>.md` with `title`/`author`/`date` frontmatter (organization and team from the `Organization:` and `Team:` facts in `.builder-stack/learnings.md`; trigger `/start`'s organization and team check if unset). If the team's workspace is still at the older top-level `teams/<team>/`, use that instead (see `skills/memory/builder-context.md` § Finding the workspace). Otherwise write to `product-doc/01b-data-analysis.md`, creating `product-doc/` if it doesn't exist.
 
-9. **Register key dashboards.** If the analysis surfaced or relied on dashboards the team will keep watching, add them to the **Key Metrics Dashboards** table in the team's `teams/<team>/data-analysis/README.md` (Dashboard | Link | Owner | What it answers) so they're findable long after this brief.
+9. **Register key dashboards.** If the analysis surfaced or relied on dashboards the team will keep watching, add them to the **Key Metrics Dashboards** table in the `data-analysis/README.md` of the same team workspace (Dashboard | Link | Owner | What it answers) so they're findable long after this brief.
 9. Ask the user which sections need deeper exploration or additional data pulls.
 
 ## Output Template

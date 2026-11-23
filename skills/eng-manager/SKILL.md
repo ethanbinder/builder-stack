@@ -17,7 +17,7 @@ You are a senior engineering manager locking in the technical approach for a pro
 
 Read `skills/memory/builder-context.md` in the Builder Stack directory for shared context. Read `skills/eng-tech-plan/template.md` for the tech-plan structure you'll populate in Phase 6 — the same lightweight format (Author, Objective, PRD & Design Link, Problem Statement, Changes Made, Testing, Risks) in both modes; full mode simply fills it with more architectural substance.
 
-**Tech-plan path.** The default output path is `product-doc/04b-tech-plan.md`. If the project's CLAUDE.md specifies a different tech-plan path (e.g. Builder Stack's own repo uses `teams/builder-stack/release-plans/<author>/<title>-tech-plan.md`, with `title`/`author`/`date` frontmatter), write the tech plan there instead — both full and small modes.
+**Tech-plan path.** The default output path is `product-doc/04b-tech-plan.md`. If the project's CLAUDE.md specifies a different tech-plan path (e.g. Builder Stack's own repo uses `organizations/builder-stack/teams/builder-stack/release-plans/<author>/<title>-tech-plan.md`, with `title`/`author`/`date` frontmatter), write the tech plan there instead — both full and small modes.
 
 ## Modes
 

@@ -3,7 +3,7 @@ name: start
 description: >-
   Entry point for a new session in a Builder Stack project. After a fetch of,
   or a new session in, the Builder Stack repo itself, opens with the Builder Stack welcome message
-  and team picker. Asks what you're
+  and organization picker. Asks what you're
   building in one or two sentences, then routes you into one of two lanes:
   0 → 1 (full strategy stack — /office-hours, /strategic-one-pager, /eng-manager —
   before any code) or fast iteration (straight to /engineer, /qa,
@@ -42,11 +42,11 @@ Welcome mode runs whenever someone fetches or starts using the Builder Stack rep
 - a new session opens in the Builder Stack repo and the user hasn't stated a concrete task yet (e.g. "hi"); or
 - the user asks what Builder Stack is or how to use it.
 
-In welcome mode, show the welcome message on **every** fetch, even if a `Team:` fact is already saved. It replaces both Phase 0 and Phase 1. Do not also show the Phase 1 greeting.
+In welcome mode, show the welcome message on **every** fetch, even if `Organization:` and `Team:` facts are already saved. It replaces both Phase 0 and Phase 1. Do not also show the Phase 1 greeting.
 
 #### Welcome message
 
-Output this verbatim. The only edit is to replace `[team list]` with the teams from the Current Teams table in `teams/README.md`, comma-separated, each in backticks. If a `Team:` fact is saved, mark that team with *(your current team)*.
+Output this verbatim. The only edit is to replace `[organization list]` with the organizations from the Current Organizations table in `organizations/README.md`, comma-separated, each in backticks. If an `Organization:` fact is saved (or resolves from a saved `Team:` fact — see **Finding the workspace** in `skills/memory/builder-context.md`), mark that organization with *(your current organization)*. In an older clone with no `organizations/README.md`, replace everything from **Which organization are you working in?** onward with the Phase 0 Step 2 ask, run against `teams/`.
 
 > 👋 Hi there! Welcome to **Builder Stack**.
 >
@@ -54,15 +54,16 @@ Output this verbatim. The only edit is to replace `[team list]` with the teams f
 >
 > I can read your code, make edits, run commands, write specs, analyze data, and help you build features end-to-end.
 >
-> **Which team are you working in?**
-> 1. **Use an existing team:** [team list]
-> 2. **Create a new team:** tell me its name and I'll set up its workspace.
+> **Which organization are you working in?**
+> 1. **Use an existing organization:** [organization list]
+> 2. **Create a new organization:** tell me its name and its first team, and I'll set up both workspaces.
 >
-> Or just tell me what you want to work on, and we can pick a team later.
+> Next, I'll help you pick or create a team inside it. Or just tell me what you want to work on, and we can pick an organization and team later.
 
 Act on the reply:
-- **Picks an existing team** → handle it as Phase 0 **Choose**.
-- **Creates a new team** → handle it as Phase 0 **Create**.
+- **Picks an existing organization** → handle it as Phase 0 **Choose an organization**, then ask for the team as Phase 0 does. If a `Team:` fact is saved and that team is in the chosen organization, keep it and say so instead of asking.
+- **Creates a new organization** → handle it as Phase 0 **Create an organization**.
+- **Names a team** (with or without its organization) → if exactly one organization has that team, choose both and skip the team ask. If several do, ask which organization. If none does, ask whether to create it and in which organization.
 - **Goes straight to a task** → treat that as Phase 0 **Continue without** (unless a `Team:` fact is already saved).
 
 Then skip Phase 1:
@@ -71,14 +72,30 @@ Then skip Phase 1:
 
 Welcome mode does not run after a fetch in any other repo. There, the regular Phase 0 → Phase 1 flow applies.
 
-### Phase 0: Team check (only when a `teams/` directory exists)
+### Phase 0: Organization and team check (only when an `organizations/` or `teams/` directory exists)
 
-If the current repo has a top-level `teams/` directory (as Builder Stack itself does), check `.builder-stack/learnings.md` for a `Team:` line under `## Project Facts` before greeting.
+Organizations sit above teams: `organizations/<organization>/teams/<team>/`. If the current repo has a top-level `organizations/` directory (as Builder Stack itself does), or an older top-level `teams/` directory, resolve the workspace before greeting, following **Finding the workspace** in `skills/memory/builder-context.md` (it reads the `Organization:` and `Team:` lines under `## Project Facts` in `.builder-stack/learnings.md`).
 
-- **`Team:` already set** → skip this phase entirely; go to Phase 1.
-- **Not set** → read `teams/README.md` and present exactly three options (registry id `start-team-select`, two-way):
+- **Workspace resolved** → skip the asks below; go to Phase 1.
+- **Only a top-level `teams/` directory** → skip step 1. Run step 2 against `teams/`: list the teams in `teams/README.md`, and create with `cp -r teams/_template teams/<team-name>` plus the Current Teams tables in `teams/README.md` **and** the root `README.md`.
+- **Otherwise** → run step 1, then step 2. One ask per message.
 
-  > Which team are you on? [team list from the Current Teams table]
+**Step 1: organization.** Read `organizations/README.md` and present exactly three options (registry id `start-organization-select`, two-way):
+
+  > Which organization are you in? [organization list from the Current Organizations table]
+  >
+  > 1. **Choose an organization** from the list above.
+  > 2. **Create a new organization** — tell me its name and its first team, and I'll scaffold both from the template.
+  > 3. **Continue without an organization or team** for now.
+
+  Act on the answer:
+  - **Choose an organization** → persist it as the `Organization:` line in `.builder-stack/learnings.md` (via the `/memory` write path). If a different organization was saved, remove the old `Team:` line unless that team is also in the new one. Go to step 2.
+  - **Create an organization** → if the first team's name is missing, ask for it. Kebab-case both names. If `organizations/<organization-name>` already exists, say so and offer to choose it instead — never copy over it. Otherwise run `cp -r organizations/_template organizations/<organization-name>` and `mv organizations/<organization-name>/teams/_template organizations/<organization-name>/teams/<team-name>`, fill in both README headings and the organization's Current Teams table, add the organization to the Current Organizations table in `organizations/README.md` **and** the root `README.md` Organizations table (lockstep rule), remind them it ships via a PR like everything else, and persist the `Organization:` and `Team:` facts. Skip step 2; go to Phase 1.
+  - **Continue without** → go to Phase 1 with no fact persisted. Note the skip for Phase 3's deferred re-ask.
+
+**Step 2: team.** Read `organizations/<organization>/README.md` and present exactly three options (registry id `start-team-select`, two-way):
+
+  > Which team are you on in [organization]? [team list from the organization's Current Teams table]
   >
   > 1. **Choose a team** from the list above.
   > 2. **Create a new team** — I'll scaffold it from the template.
@@ -86,8 +103,8 @@ If the current repo has a top-level `teams/` directory (as Builder Stack itself 
 
   Act on the answer:
   - **Choose** → persist it as the `Team:` line in `.builder-stack/learnings.md` (via the `/memory` write path). Go to Phase 1.
-  - **Create** → run `cp -r teams/_template teams/<team-name>`, fill in the team README heading, add the team to the Current Teams tables in `teams/README.md` **and** the root `README.md` (lockstep rule), remind them it ships via a PR like everything else, and persist the `Team:` fact. Go to Phase 1.
-  - **Continue without** → go to Phase 1 with no fact persisted. Note the skip for Phase 3's deferred re-ask.
+  - **Create** → kebab-case the name. If `organizations/<organization>/teams/<team-name>` already exists, say so and offer to choose it instead — never copy over it. Otherwise run `cp -r organizations/_template/teams/_template organizations/<organization>/teams/<team-name>`, fill in the team README heading, add the team to the Current Teams table in `organizations/<organization>/README.md` **and** the root `README.md` Organizations table (lockstep rule), remind them it ships via a PR like everything else, and persist the `Team:` fact. Go to Phase 1.
+  - **Continue without** → go to Phase 1 with no `Team:` fact persisted. Note the skip for Phase 3's deferred re-ask.
 
 ### Phase 1: Greet
 
@@ -113,11 +130,11 @@ Decide the lane from the user's reply. Do not re-ask unless genuinely unclear.
 
 ### Phase 3: Hand off
 
-**Deferred team re-ask.** If the user chose "continue without a team" in Phase 0 and is now starting work, ask once more before routing (same registry id `start-team-select`):
+**Deferred re-ask.** If the user chose "continue without" in Phase 0 and is now starting work, ask once more before routing (same registry ids: `start-organization-select` if no organization is set, otherwise `start-team-select`):
 
-> Before we dive in — want to pick or create a team so your docs land in its workspace? Fine to skip.
+> Before we dive in — want to pick or create [an organization and team / a team] so your docs land in its workspace? Fine to skip.
 
-Choose/create behave exactly as in Phase 0. If skipped again, do not ask again this session — the template skills and `/data-analysis` will run their own team check only when they need an output home.
+Choose/create behave exactly as in Phase 0. If skipped again, do not ask again this session — the template skills and `/data-analysis` will run their own organization and team check only when they need an output home.
 
 Route to the matching skill and stop.
 

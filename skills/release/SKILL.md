@@ -80,7 +80,7 @@ Keep PRs small and easy to review. When the work at hand is large or has indepen
 
 **Every PR must link to a tech plan.** No skip option. The choice is *which kind* of tech plan: a full one (substantive features) or a small one (typo fixes, README updates, one-line bug fixes). This phase runs before any expensive work (sync, lint, tests) so we fail fast on intent.
 
-**Tech-plan path.** The default path is `product-doc/04b-tech-plan.md`. If the project's CLAUDE.md specifies a different tech-plan path (e.g. Builder Stack's own repo uses `teams/builder-stack/release-plans/<author>/<title>-tech-plan.md`), use that path everywhere this phase, the PR body, and the Jira comment reference the tech plan.
+**Tech-plan path.** The default path is `product-doc/04b-tech-plan.md`. If the project's CLAUDE.md specifies a different tech-plan path (e.g. Builder Stack's own repo uses `organizations/builder-stack/teams/builder-stack/release-plans/<author>/<title>-tech-plan.md`), use that path everywhere this phase, the PR body, and the Jira comment reference the tech plan.
 
 1. **Detect.** Check whether the tech plan exists at the resolved path (default: `test -f product-doc/04b-tech-plan.md`).
    - **Exists** → skip Phase 0; proceed to Phase 1.

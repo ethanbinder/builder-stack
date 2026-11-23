@@ -1,8 +1,12 @@
-# builder-stack
+# [Team Name]
 
-The team behind Builder Stack itself. This workspace dogfoods the exact convention every team at your company follows — poke around it to see the pattern in action (start with [`release-plans/ethan-binder/`](release-plans/ethan-binder/)).
+> **New team?** You just copied the team template. Replace this heading with your team's name, write one or two sentences about your team's mission below, and add your team to the Current Teams table in [your organization's README](../../README.md) — all in the same PR.
+
+*One or two sentences: what this team owns and the outcome it drives.*
 
 ## What lives here
+
+This is your team's workspace. Every document your team produces has a home:
 
 | Folder | What goes in it |
 |--------|-----------------|
@@ -19,9 +23,9 @@ The team behind Builder Stack itself. This workspace dogfoods the exact conventi
 ## How it works
 
 1. **Pick the folder** that matches the kind of document you're adding.
-2. **Create (or open) your author folder** inside it — kebab-case your name, e.g. `ethan-binder/`.
+2. **Create (or open) your author folder** inside it — kebab-case your name, e.g. `ethan-binder/`. Every team member gets one folder per doc type; you only create yours the first time.
 3. **Add your document** as a markdown file named after its title in kebab-case, e.g. `q3-retention-strategy.md`.
-4. **Start the file with frontmatter**:
+4. **Start the file with frontmatter** so every doc self-identifies at the top:
 
    ```yaml
    ---
@@ -31,4 +35,4 @@ The team behind Builder Stack itself. This workspace dogfoods the exact conventi
    ---
    ```
 
-Same pattern, every folder, every team. See [`teams/README.md`](../README.md) for how to add a new team.
+The same pattern applies in every folder, for every team, across the whole repo — each folder's README repeats it so it's always one click away.
