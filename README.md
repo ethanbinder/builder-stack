@@ -58,7 +58,23 @@ Think → Plan → Build → Review → Test → Ship → Reflect
 
 ## Quick Start
 
-### 1. Pick a home for your repos (recommended)
+Copy this, paste it into Claude Code or Codex, and it sets up your own copy of Builder Stack for your company or project:
+
+```
+https://github.com/ethanbinder/builder-stack
+
+Fork this repo so I can use it for my own company or project. Follow the Quick Start in its README.
+```
+
+Your LLM forks the repo to your GitHub account, clones it, and helps you create your organization and first team. It needs to be able to run commands on your computer, with [git](https://git-scm.com/downloads) and the [GitHub CLI](https://cli.github.com) signed in (`gh auth login`). A chat app that can't run commands can only walk you through the steps below.
+
+**Using it for company work?** Forks of a public GitHub repo are always public. Change "Fork this repo" to "Make a private copy of this repo" if your docs shouldn't be.
+
+### Or set it up yourself
+
+These are the same steps your LLM follows.
+
+#### 1. Pick a home for your repos (recommended)
 
 The simplest setup is to keep all your work in one parent folder. If you don't already have one, create a `Development/` folder somewhere convenient:
 
@@ -69,14 +85,33 @@ cd ~/Desktop/Development
 
 Why: Builder Stack works no matter where you clone it, but keeping all your repos under one parent folder means Builder Stack lives next to the projects it supports, you can grep across them easily, and the auto-sync hook (step 3 below) keeps everything pointed at one stable location.
 
-### 2. Clone Builder Stack
+#### 2. Fork Builder Stack
+
+Replace `<you>` with your GitHub username or organization. For an organization, add `--org <you>` to the first command.
 
 ```bash
-git clone https://github.com/ethanbinder/builder-stack.git
+gh repo fork ethanbinder/builder-stack --clone --default-branch-only
 cd builder-stack
+gh repo set-default <you>/builder-stack
 ```
 
-### 3. Run the installer
+The last line matters: without it, pull requests you open can go to the original public repo instead of yours.
+
+**Want it private?** Make a copy instead of a fork:
+
+```bash
+git clone --origin upstream https://github.com/ethanbinder/builder-stack.git
+cd builder-stack
+gh repo create <you>/builder-stack --private --source . --remote origin
+git push -u origin main
+gh repo set-default <you>/builder-stack
+```
+
+Either way, `origin` is your copy and `upstream` is the original. To get new skills later, ask your LLM to open a pull request that merges `upstream/main` into your copy.
+
+#### 3. Run the installer
+
+Run this one yourself, so you can answer its questions:
 
 ```bash
 ./install.sh
@@ -87,7 +122,7 @@ The installer asks four Y/n questions, one per integration. Each question explai
 1. **Make skills discoverable from any folder** — symlinks each skill into `~/.claude/skills/` so `/engineer`, `/release`, `/start`, etc. are invocable from any project, not just inside this repo.
 2. **Let skills reach their supporting files** — adds Builder Stack's root to Claude Code's `additionalDirectories` so skills can read their shared context, templates, and setup docs from any working directory.
 3. **Auto-invoke `/start` after `git pull`/`fetch`/`clone`** — installs Builder Stack's existing post-git hook globally so it fires in any repo, not just inside this one. Fetching the Builder Stack repo itself opens with the Builder Stack welcome message and organization picker; fetching any other repo re-runs the regular `/start` greeting.
-4. **Auto-update Builder Stack on every Claude session start** — installs a `SessionStart` hook that quietly `git pull --ff-only`s this repo and re-syncs your skill symlinks, so new skills landing upstream show up automatically with no manual command.
+4. **Auto-update Builder Stack on every Claude session start** — installs a `SessionStart` hook that quietly `git pull --ff-only`s this repo and re-syncs your skill symlinks, so new skills merged into your copy show up automatically with no manual command.
 
 After it finishes, open Claude Code in any project folder and type `/` to see your Builder Stack skills.
 
@@ -100,7 +135,11 @@ After it finishes, open Claude Code in any project folder and type `/` to see yo
 /release                → Ship a PR
 ```
 
-**First session:** open Claude Code in any project with Builder Stack installed and Claude will ask what you're building, then offer two lanes — 0 → 1 (full strategy stack) or fast iteration (straight to a production-ready PR).
+#### 4. Create your organization and team
+
+Open Claude Code in your `builder-stack` folder and say hi. The welcome message asks which organization you're in; choose **Create a new organization** and give it your company or project's name and a first team.
+
+**First session in your other projects:** open Claude Code in any project with Builder Stack installed and Claude will ask what you're building, then offer two lanes — 0 → 1 (full strategy stack) or fast iteration (straight to a production-ready PR).
 
 ### Re-running
 
