@@ -12,6 +12,7 @@ Click an organization to see its teams.
 | [example-org-a](example-org-a/) | Example organization A |
 | [example-org-b](example-org-b/) | Example organization B |
 | [example-org-c](example-org-c/) | Example organization C |
+| [example-org-d](example-org-d/) | Example organization D |
 
 > Keep this table in lockstep with the folders: adding or removing an organization updates this list (and the Organizations section of the root README) in the same PR. Each organization's README keeps its own Current Teams table.
 
