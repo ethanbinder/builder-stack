@@ -20,7 +20,7 @@ Every skill in Builder Stack maps to a phase of this workflow:
 | Review | `/security`, `/pr-comments` |
 | Test | `/qa` |
 | Ship | `/release` |
-| Reflect | `/memory` |
+| Reflect | `/memory`, `/slack-bot` |
 
 ## Generating Docs (shared behavior for all template skills)
 
