@@ -20,6 +20,7 @@ Every organization in your company gets a workspace, and every team gets one ins
 | [example-org-a](organizations/example-org-a/) | [example-team-a](organizations/example-org-a/teams/example-team-a/), [example-team-b](organizations/example-org-a/teams/example-team-b/), [example-team-c](organizations/example-org-a/teams/example-team-c/) |
 | [example-org-b](organizations/example-org-b/) | [example-team-a](organizations/example-org-b/teams/example-team-a/), [example-team-b](organizations/example-org-b/teams/example-team-b/), [example-team-c](organizations/example-org-b/teams/example-team-c/) |
 | [example-org-c](organizations/example-org-c/) | [example-team-a](organizations/example-org-c/teams/example-team-a/), [example-team-b](organizations/example-org-c/teams/example-team-b/), [example-team-c](organizations/example-org-c/teams/example-team-c/) |
+| [example-org-d](organizations/example-org-d/) | [example-team-a](organizations/example-org-d/teams/example-team-a/), [example-team-b](organizations/example-org-d/teams/example-team-b/), [example-team-c](organizations/example-org-d/teams/example-team-c/) |
 
 See them all in [`organizations/`](organizations/). The `example-org-*` ones show the layout; delete them when you don't need them.
 
