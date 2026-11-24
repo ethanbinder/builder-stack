@@ -46,7 +46,7 @@ In welcome mode, show the welcome message on **every** fetch, even if `Organizat
 
 #### Welcome message
 
-Output this verbatim. The only edit is to replace `[organization list]` with the organizations from the Current Organizations table in `organizations/README.md`, comma-separated, each in backticks. If an `Organization:` fact is saved (or resolves from a saved `Team:` fact — see **Finding the workspace** in `skills/memory/builder-context.md`), mark that organization with *(your current organization)*. In an older clone with no `organizations/README.md`, replace everything from **Which organization are you working in?** onward with the Phase 0 Step 2 ask, run against `teams/`.
+Output this verbatim. The only edit is to replace `[organization list]` with the organizations from the Current Organizations table in `organizations/README.md` (leave out the `example-org-*` examples), comma-separated, each in backticks. If an `Organization:` fact is saved (or resolves from a saved `Team:` fact — see **Finding the workspace** in `skills/memory/builder-context.md`), mark that organization with *(your current organization)*. In an older clone with no `organizations/README.md`, replace everything from **Which organization are you working in?** onward with the Phase 0 Step 2 ask, run against `teams/`.
 
 > 👋 Hi there! Welcome to **Builder Stack**.
 >
@@ -63,7 +63,7 @@ Output this verbatim. The only edit is to replace `[organization list]` with the
 Act on the reply:
 - **Picks an existing organization** → handle it as Phase 0 **Choose an organization**, then ask for the team as Phase 0 does. If a `Team:` fact is saved and that team is in the chosen organization, keep it and say so instead of asking.
 - **Creates a new organization** → handle it as Phase 0 **Create an organization**.
-- **Names a team** (with or without its organization) → if exactly one organization has that team, choose both and skip the team ask. If several do, ask which organization. If none does, ask whether to create it and in which organization.
+- **Names a team** (with or without its organization) → ignoring the `example-org-*` examples, if exactly one organization has that team, choose both and skip the team ask. If several do, ask which organization. If none does, ask whether to create it and in which organization.
 - **Goes straight to a task** → treat that as Phase 0 **Continue without** (unless a `Team:` fact is already saved).
 
 Then skip Phase 1:
@@ -82,7 +82,7 @@ Organizations sit above teams: `organizations/<organization>/teams/<team>/`. If 
 
 **Step 1: organization.** Read `organizations/README.md` and present exactly three options (registry id `start-organization-select`, two-way):
 
-  > Which organization are you in? [organization list from the Current Organizations table]
+  > Which organization are you in? [organization list from the Current Organizations table, without the `example-org-*` examples]
   >
   > 1. **Choose an organization** from the list above.
   > 2. **Create a new organization** — tell me its name and its first team, and I'll scaffold both from the template.

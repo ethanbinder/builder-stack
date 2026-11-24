@@ -13,7 +13,7 @@ if echo "$INPUT" | grep -qE '"command":[[:space:]]*"[^"]*git[[:space:]]+(pull|fe
   ROOT=$(git rev-parse --show-toplevel 2>/dev/null || true)
   if [ -n "$ROOT" ] && [ -f "$ROOT/skills/start/SKILL.md" ] && { [ -f "$ROOT/organizations/README.md" ] || [ -f "$ROOT/teams/README.md" ]; }; then
     cat <<'EOF'
-{"hookSpecificOutput":{"hookEventName":"PostToolUse","additionalContext":"The user just pulled/fetched/cloned the Builder Stack repo. Invoke the /start skill now in Welcome mode: reply with the Builder Stack welcome message from skills/start/SKILL.md verbatim, filling in [organization list] from the Current Organizations table in organizations/README.md, or following the skill's older-clone fallback if that file is missing (mark the saved Organization: fact as the current organization if one is set). Show it every time, even if an organization and team are already set, then act on the reply per Welcome mode."}}
+{"hookSpecificOutput":{"hookEventName":"PostToolUse","additionalContext":"The user just pulled/fetched/cloned the Builder Stack repo. Invoke the /start skill now in Welcome mode: reply with the Builder Stack welcome message from skills/start/SKILL.md verbatim, filling in [organization list] from the Current Organizations table in organizations/README.md (leaving out the example-org-* examples), or following the skill's older-clone fallback if that file is missing (mark the saved Organization: fact as the current organization if one is set). Show it every time, even if an organization and team are already set, then act on the reply per Welcome mode."}}
 EOF
   else
     cat <<'EOF'

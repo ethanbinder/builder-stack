@@ -2,6 +2,21 @@
 
 **Every organization in your company gets a workspace, and every team lives inside one.** An organization holds the documents that span its teams. A team workspace is where that team's own product documents live — decks, strategy, specs, release plans. Both are organized the same way everywhere, so anyone at the company can find anything without asking.
 
+## Current Organizations
+
+Click an organization to see its teams.
+
+| Organization | What it is |
+|--------------|------------|
+| [builder-stack](builder-stack/) | The organization behind Builder Stack |
+| [example-org-a](example-org-a/) | Example organization A |
+| [example-org-b](example-org-b/) | Example organization B |
+| [example-org-c](example-org-c/) | Example organization C |
+
+> Keep this table in lockstep with the folders: adding or removing an organization updates this list (and the Organizations section of the root README) in the same PR. Each organization's README keeps its own Current Teams table.
+
+**About the examples:** the `example-org-*` folders show the layout and aren't real workspaces, so `/start` leaves them out of its list. When you don't need them, delete the folders and their rows here and in the root README.
+
 ## How it's organized
 
 ```
@@ -26,14 +41,6 @@ organizations/
 Inside each document folder, **every author gets their own folder** (kebab-case name, e.g. `ethan-binder/`), and each document is a markdown file named after its title (e.g. `q3-retention-strategy.md`) that opens with `title` / `author` / `date` frontmatter. Each folder's README explains the convention right where you need it.
 
 **Org-wide or team?** If a document covers one team, it goes in that team's workspace. If it spans several teams in the organization, it goes in the organization's `strategy/` or `roadmap/`.
-
-## Current Organizations
-
-| Organization | Workspace |
-|--------------|-----------|
-| builder-stack | [`organizations/builder-stack/`](builder-stack/) |
-
-> Keep this table in lockstep with the folders: adding or removing an organization updates this list (and the Organizations section of the root README) in the same PR. Each organization's README keeps its own Current Teams table.
 
 ## Adding an organization? Here's how
 
