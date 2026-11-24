@@ -31,6 +31,9 @@ See `skills/memory/SKILL.md` for how preferences are written and the user-origin
 | `office-hours-mode-select` | office-hours | two-way | Phase 6 — pick Expansion / Selective Expansion / Hold Scope / Reduction. Advisor always recommends one with a one-line reason. | accept the advisor's recommended mode | yes |
 | `office-hours-next-skill` | office-hours | two-way | Phase 7 — run `/strategic-one-pager` next or `/data-analysis` first? | `/strategic-one-pager` (the default downstream hand-off) | yes |
 | `release-tech-plan-prompt` | release | two-way | Phase 0 — when the tech plan is missing at the resolved tech-plan path (default `product-doc/04b-tech-plan.md`), choose between writing a `full` tech plan (via `/eng-manager`) or a `small` one (via `/eng-manager --small`, auto-populated from the diff). Skip is **not** an option — every PR must link to a tech plan. | `small` (auto-populated from the diff; zero friction for trivial PRs while still satisfying the mandatory-tech-plan rule) | yes |
+| `slack-bot-approach` | slack-bot | two-way | Phase 1 — build and host your own bot, or use Claude Tag (Anthropic's hosted Slack app). | build your own bot | yes |
+| `slack-bot-intake` | slack-bot | two-way | Phase 2 — which repo, which channels map to which organization and team, time zone, and where the bot's code goes. | the current repo's `origin`, UTC, and `builder-stack-slack-bot/` next to the Builder Stack folder; leave the sample channels in `config.json` and tell the user to replace them before starting the bot | yes |
+| `slack-bot-public-repo` | slack-bot | **one-way** | Phase 2 — the target repo is public, so captured Slack content would be visible to anyone. Data exposure can't be undone. | (n/a — always asks) | no |
 
 ## Adding a new ask
 
