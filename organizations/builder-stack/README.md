@@ -4,9 +4,9 @@ The organization behind Builder Stack itself. It dogfoods the exact layout every
 
 ## Current Teams
 
-| Team | Workspace |
-|------|-----------|
-| builder-stack | [`organizations/builder-stack/teams/builder-stack/`](teams/builder-stack/) |
+| Team | What it owns |
+|------|--------------|
+| [builder-stack](teams/builder-stack/) | Builder Stack itself |
 
 > Keep this table in lockstep with the folders under `teams/`: adding or removing a team updates this list (and the Organizations section of the root README) in the same PR.
 

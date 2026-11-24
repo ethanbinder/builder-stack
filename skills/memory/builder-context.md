@@ -73,7 +73,7 @@ date: <today, YYYY-MM-DD>
 Organizations sit above teams: `organizations/<organization>/teams/<team>/`. Resolve the team workspace from the `Organization:` and `Team:` facts under `## Project Facts` in `.builder-stack/learnings.md`:
 
 1. **Both set** and `organizations/<organization>/teams/<team>/` exists → use it.
-2. **Otherwise, `Team:` set** → look for the team under every organization (skip `_template`) and at the older top-level `teams/<team>/`.
+2. **Otherwise, `Team:` set** → look for the team under every organization (skip `_template` and `example-org-*`) and at the older top-level `teams/<team>/`.
    - Exactly one match inside an organization, and none at `teams/<team>/` → use it and save that organization as the `Organization:` fact.
    - Only `teams/<team>/` → use it as is. Mention once that it can move into an organization (`organizations/README.md` § Migrating). Never move it without being asked.
    - Several matches → ask which one. Don't guess.

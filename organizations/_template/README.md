@@ -6,9 +6,9 @@
 
 ## Current Teams
 
-| Team | Workspace |
-|------|-----------|
-| [your-first-team] | [link to teams/your-first-team/] |
+| Team | What it owns |
+|------|--------------|
+| [your-first-team, linked to teams/your-first-team/] | [one line] |
 
 > Keep this table in lockstep with the folders under `teams/`: adding or removing a team updates this list (and the Organizations section of the root README) in the same PR.
 

@@ -14,9 +14,14 @@ It gives Builders a virtual team inside Claude Code or Codex spanning the entire
 
 Every organization in your company gets a workspace, and every team gets one inside its organization - so any teammate can find any document without asking. Docs that span teams live at the organization level. Each folder's README teaches the convention right where you need it.
 
-| Organization | Team | Workspace |
-|--------------|------|-----------|
-| builder-stack | builder-stack | [`organizations/builder-stack/teams/builder-stack/`](organizations/builder-stack/teams/builder-stack/) |
+| Organization | Teams |
+|--------------|-------|
+| [builder-stack](organizations/builder-stack/) | [builder-stack](organizations/builder-stack/teams/builder-stack/) |
+| [example-org-a](organizations/example-org-a/) | [example-team-a](organizations/example-org-a/teams/example-team-a/), [example-team-b](organizations/example-org-a/teams/example-team-b/), [example-team-c](organizations/example-org-a/teams/example-team-c/) |
+| [example-org-b](organizations/example-org-b/) | [example-team-a](organizations/example-org-b/teams/example-team-a/), [example-team-b](organizations/example-org-b/teams/example-team-b/), [example-team-c](organizations/example-org-b/teams/example-team-c/) |
+| [example-org-c](organizations/example-org-c/) | [example-team-a](organizations/example-org-c/teams/example-team-a/), [example-team-b](organizations/example-org-c/teams/example-team-b/), [example-team-c](organizations/example-org-c/teams/example-team-c/) |
+
+See them all in [`organizations/`](organizations/). The `example-org-*` ones show the layout; delete them when you don't need them.
 
 **Adding an organization or team?** Let Claude or Codex do it: fetch the repo (`git fetch` / `git pull`) in a session — the Builder Stack welcome message appears with the organization picker, followed by the team picker; choose **Create a new organization** or **Create a new team** and type its name, and the workspace is scaffolded from the template with the matching tables updated for you. Full instructions, including how to move an older top-level `teams/` folder, live in [`organizations/README.md`](organizations/README.md).
 
